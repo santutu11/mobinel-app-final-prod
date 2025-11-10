@@ -1,18 +1,9 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/Auth/Login.jsx'; 
-import './index.css'; 
-
-// Componente básico de Dashboard (Temporal)
-const Dashboard = () => {
-    return (
-        <div className="p-8">
-            <h1 className="text-3xl font-bold text-purple-700">✅ Dashboard Cargado Exitosamente</h1>
-            <p className="mt-2 text-gray-600">Conexión al Backend lista. Ahora podrás probar el chat de NEL.</p>
-        </div>
-    );
-}
+import Login from './components/Auth/Login.jsx';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
+import './index.css';
 
 // ✅ COMPONENTE PRIVATEROUTE AGREGADO
 const PrivateRoute = ({ children }) => {
