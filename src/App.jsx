@@ -2,13 +2,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Auth/Login.jsx'; 
-
-// === AÑADIR ESTA LÍNEA AQUÍ (IMPORTACIÓN GLOBAL) ===
 import './index.css'; 
 
 // Componente básico de Dashboard (Temporal)
 const Dashboard = () => {
-// ... el código del Dashboard temporal ...
     return (
         <div className="p-8">
             <h1 className="text-3xl font-bold text-purple-700">✅ Dashboard Cargado Exitosamente</h1>
@@ -16,6 +13,17 @@ const Dashboard = () => {
         </div>
     );
 }
+
+// ✅ COMPONENTE PRIVATEROUTE AGREGADO
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('mobinel_token');
+  
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return children;
+};
 
 function App() {
   return (
