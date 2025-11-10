@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Importa los paquetes que Vercel necesita para la compilación de estilos
-import tailwindcss from '@tailwindcss/postcss'; // El paquete que Vercel quiere
+import tailwindcss from 'tailwindcss'; // Usamos el paquete base (el que está en tu node_modules)
 import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
@@ -12,8 +12,9 @@ export default defineConfig({
     // Definimos la configuración de PostCSS directamente aquí
     postcss: {
       plugins: [
-        tailwindcss(), // Cargamos Tailwind
-        autoprefixer,  // Cargamos Autoprefixer
+        // La versión de tu Tailwind (v4.1.17) requiere la sintaxis de función
+        tailwindcss(), 
+        autoprefixer,  
       ],
     },
   },
