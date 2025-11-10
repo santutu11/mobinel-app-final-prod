@@ -14,7 +14,6 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Simulación de login (reemplazar con API real)
       if (email && password) {
         localStorage.setItem('mobinel_token', 'fake-token-123');
         localStorage.setItem('mobinel_user', JSON.stringify({
@@ -34,74 +33,178 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+    <div style={styles.container}>
+      <div style={styles.card}>
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-            M
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">MOBINEL Login</h1>
-          <p className="text-gray-600">Accede a tu Sistema de Producción</p>
+        <div style={styles.header}>
+          <div style={styles.logo}>M</div>
+          <h1 style={styles.title}>MOBINEL Login</h1>
+          <p style={styles.subtitle}>Accede a tu Sistema de Producción</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Email
-            </label>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="anthony@mobinel.com"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition"
+              style={styles.input}
               required
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Contraseña
-            </label>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Contraseña</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password123"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition"
+              style={styles.input}
               required
             />
           </div>
 
           {error && (
-            <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
+            <div style={styles.error}>{error}</div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg"
+            style={{...styles.button, opacity: loading ? 0.5 : 1}}
           >
             {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </button>
         </form>
 
         {/* Test credentials */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center mb-3">
-            Cuentas de prueba:
-          </p>
-          <div className="space-y-2 text-xs text-gray-500 bg-gray-50 rounded-lg p-4">
+        <div style={styles.footer}>
+          <p style={styles.footerTitle}>Cuentas de prueba:</p>
+          <div style={styles.credentials}>
             <div>👷 <strong>Trabajador:</strong> anthony@mobinel.com</div>
             <div>👤 <strong>Cliente:</strong> carlos.ruiz@email.com</div>
-            <div className="font-semibold text-purple-600">🔑 Password: password123</div>
+            <div style={{color: '#9333ea', fontWeight: 'bold'}}>🔑 Password: password123</div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: '16px',
+    boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
+    padding: '40px',
+    width: '100%',
+    maxWidth: '450px'
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '32px'
+  },
+  logo: {
+    width: '64px',
+    height: '64px',
+    background: 'linear-gradient(135deg, #9333ea 0%, #7e22ce 100%)',
+    borderRadius: '12px',
+    margin: '0 auto 16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontSize: '28px',
+    fontWeight: 'bold',
+    boxShadow: '0 4px 12px rgba(147, 51, 234, 0.3)'
+  },
+  title: {
+    fontSize: '32px',
+    fontWeight: 'bold',
+    color: '#111827',
+    margin: '0 0 8px 0'
+  },
+  subtitle: {
+    color: '#6b7280',
+    margin: 0
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px'
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
+  },
+  label: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#374151'
+  },
+  input: {
+    width: '100%',
+    padding: '12px 16px',
+    border: '2px solid #e5e7eb',
+    borderRadius: '8px',
+    fontSize: '16px',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    boxSizing: 'border-box'
+  },
+  button: {
+    width: '100%',
+    padding: '14px',
+    background: 'linear-gradient(135deg, #9333ea 0%, #7e22ce 100%)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    boxShadow: '0 4px 12px rgba(147, 51, 234, 0.3)'
+  },
+  error: {
+    backgroundColor: '#fee',
+    color: '#c00',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    fontSize: '14px'
+  },
+  footer: {
+    marginTop: '32px',
+    paddingTop: '24px',
+    borderTop: '1px solid #e5e7eb'
+  },
+  footerTitle: {
+    fontSize: '14px',
+    color: '#6b7280',
+    textAlign: 'center',
+    marginBottom: '12px'
+  },
+  credentials: {
+    backgroundColor: '#f9fafb',
+    borderRadius: '8px',
+    padding: '16px',
+    fontSize: '12px',
+    color: '#6b7280',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
+  }
+};
