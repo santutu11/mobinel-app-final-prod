@@ -1,0 +1,9 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos de MOBINEL */
+.gradient-purple {
+  background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+}
