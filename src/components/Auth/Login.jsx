@@ -1,85 +1,107 @@
-// src/components/Auth/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../services/api';
 
-const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [error, setError] = useState(null);
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setLoading(true);
-    setError(null);
+
     try {
-      await login(credentials);
-      navigate('/dashboard'); 
+      // Simulación de login (reemplazar con API real)
+      if (email && password) {
+        localStorage.setItem('mobinel_token', 'fake-token-123');
+        localStorage.setItem('mobinel_user', JSON.stringify({
+          name: 'Anthony Ramírez',
+          email: email,
+          role: 'Técnico CNC'
+        }));
+        navigate('/dashboard');
+      } else {
+        setError('Por favor completa todos los campos');
+      }
     } catch (err) {
-      setError(err.response?.data?.error || 'Error de conexión. Inténtalo de nuevo.');
-      console.error('Login Error:', err);
+      setError('Error al iniciar sesión');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-xl border border-gray-200">
-        <h2 className="text-3xl font-bold text-center gradient-purple bg-clip-text text-transparent">
-          MOBINEL Login
-        </h2>
-        <p className="text-center text-gray-600">Accede a tu Sistema de Producción</p>
-        
-        {error && (
-          <div className="p-3 text-sm text-red-700 bg-red-100 rounded-lg">
-            {error}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+            M
           </div>
-        )}
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">MOBINEL Login</h1>
+          <p className="text-gray-600">Accede a tu Sistema de Producción</p>
+        </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Email
+            </label>
             <input
               type="email"
-              name="email"
-              value={credentials.email}
-              onChange={handleChange}
-              placeholder="anthony@mobinel.com o carlos.ruiz@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="anthony@mobinel.com"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition"
               required
-              className="w-full p-3 mt-1 border-2 border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
             />
           </div>
-          
+
           <div>
-            <label className="text-sm font-medium text-gray-700">Contraseña</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Contraseña
+            </label>
             <input
               type="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="password123"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-600 focus:outline-none transition"
               required
-              className="w-full p-3 mt-1 border-2 border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
             />
           </div>
-          
+
+          {error && (
+            <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full p-3 text-white font-semibold rounded-lg gradient-purple hover:opacity-90 transition disabled:opacity-50"
+            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg"
           >
-            {loading ? 'Cargando...' : 'Iniciar Sesión'}
+            {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </button>
         </form>
+
+        {/* Test credentials */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-600 text-center mb-3">
+            Cuentas de prueba:
+          </p>
+          <div className="space-y-2 text-xs text-gray-500 bg-gray-50 rounded-lg p-4">
+            <div>👷 <strong>Trabajador:</strong> anthony@mobinel.com</div>
+            <div>👤 <strong>Cliente:</strong> carlos.ruiz@email.com</div>
+            <div className="font-semibold text-purple-600">🔑 Password: password123</div>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
