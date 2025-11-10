@@ -2,17 +2,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Auth/Login.jsx'; 
-// import Dashboard from './components/Dashboard.jsx'; // Esto se creará después
 
-// Función de protección de ruta: verifica si hay token
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('mobinel_token');
-  return token ? children : <Navigate to="/login" />;
-};
+// === AÑADIR ESTA LÍNEA AQUÍ (IMPORTACIÓN GLOBAL) ===
+import './index.css'; 
 
-
-// Componente básico de Dashboard (TEMPORAL)
+// Componente básico de Dashboard (Temporal)
 const Dashboard = () => {
+// ... el código del Dashboard temporal ...
     return (
         <div className="p-8">
             <h1 className="text-3xl font-bold text-purple-700">✅ Dashboard Cargado Exitosamente</h1>
