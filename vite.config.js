@@ -1,17 +1,9 @@
-// vite.config.js (Debe tener los imports correctos)
+// vite.config.js (Versión Segura)
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/postcss'; // Importa el paquete que Vercel pide
-import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
   plugins: [react()],
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss(), 
-        autoprefixer,
-      ],
-    },
-  },
+  // Eliminamos toda la configuración de CSS/PostCSS que causaba problemas.
+  // La aplicación cargará estilos básicos sin Tailwind, pero al menos mostrará el HTML.
 });
